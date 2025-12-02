@@ -1,43 +1,41 @@
 import React from 'react'
 
 const Card = ({ data }) => {
-    console.log(data);
 
-    const readMore = (url) => {
-        window.open(url);
-    };
+  return (
+    <div className='cardContainer'>
+      {data.map((curItem, index) => {
+        
+        // Skip if no image available
+        if (!curItem.image_url) {
+          return null;
+        }
 
-    return (
-        <div className='cardContainer'>
-            {data.map((curItem, index) => {
-                if (!curItem.urlToImage) {
-                    return null;
-                }
+        return (
+          <div className='card' key={index}>
+            <img src={curItem.image_url} alt="news" />
 
-                return (
-                    <div className='card' key={index}>
-                        <img src={curItem.urlToImage} />
+            <div className='content'>
 
-                        <div className='content'>
-                            <a
-                                className='title'
-                                onClick={() => window.open(curItem.url)}
-                                style={{ cursor: "pointer" }}
-                            >
-                                {curItem.title}
-                            </a>
+              <a 
+                className='title' 
+                onClick={() => window.open(curItem.link)} 
+                style={{ cursor: "pointer" }}
+              >
+                {curItem.title}
+              </a>
 
-                            <p>{curItem.description}</p>
+              <p>{curItem.description}</p>
 
-                            <button onClick={() => window.open(curItem.url)}>
-                                Read More
-                            </button>
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+              <button onClick={() => window.open(curItem.link)}>
+                Read More
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  )
+}
 
-export default Card;
+export default Card
